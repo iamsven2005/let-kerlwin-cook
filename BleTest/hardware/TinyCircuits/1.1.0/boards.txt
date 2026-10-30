@@ -1,0 +1,188 @@
+# Copyright (c) 2014-2015 Arduino LLC.  All right reserved.
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+menu.BuildOption=Build Option
+
+# TinyScreen+
+# ---------------------------------------
+tinyscreen.name=TinyScreen+
+tinyscreen.vid.0=0x03EB
+tinyscreen.pid.0=0x8008
+tinyscreen.vid.1=0x03EB
+tinyscreen.pid.1=0x8009
+tinyscreen.upload.tool=bossac
+tinyscreen.upload.protocol=sam-ba
+tinyscreen.upload.maximum_size=262144
+tinyscreen.upload.use_1200bps_touch=true
+tinyscreen.upload.wait_for_upload_port=true
+tinyscreen.upload.native_usb=true
+tinyscreen.build.mcu=cortex-m0plus
+tinyscreen.build.f_cpu=48000000L
+tinyscreen.build.usb_product="TinyScreen+"
+tinyscreen.build.usb_manufacturer="TinyCircuits"
+tinyscreen.build.board=SAMD_ZERO
+tinyscreen.build.core=arduino
+tinyscreen.build.ldscript=linker_scripts/gcc/flash_with_bootloader.ld
+
+tinyscreen.menu.BuildOption.normal=Default
+tinyscreen.menu.BuildOption.normal.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags}  -DUSBCON
+
+tinyscreen.menu.BuildOption.internal=Internal 32KHz Oscillator
+tinyscreen.menu.BuildOption.internal.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON -DCRYSTALLESS 
+
+tinyscreen.build.openocdscript=openocd_scripts/arduino_zero.cfg
+tinyscreen.build.variant=tinyscreen_p
+tinyscreen.build.variant_system_lib=
+tinyscreen.build.vid=0x03EB
+tinyscreen.build.pid=0x8009
+
+# Tiny Arcade
+# ---------------------------------------
+tinyarcade.name=Tiny Arcade
+tinyarcade.vid.0=0x03EB
+tinyarcade.pid.0=0x8008
+tinyarcade.vid.1=0x03EB
+tinyarcade.pid.1=0x8009
+tinyarcade.upload.tool=bossac
+tinyarcade.upload.protocol=sam-ba
+tinyarcade.upload.maximum_size=262144
+tinyarcade.upload.use_1200bps_touch=true
+tinyarcade.upload.wait_for_upload_port=true
+tinyarcade.upload.native_usb=true
+tinyarcade.build.mcu=cortex-m0plus
+tinyarcade.build.f_cpu=48000000L
+tinyarcade.build.usb_product="TinyArcade"
+tinyarcade.build.usb_manufacturer="TinyCircuits"
+tinyarcade.build.board=SAMD_ZERO
+tinyarcade.build.core=arduino
+
+tinyarcade.menu.BuildOption.normal=Default
+tinyarcade.menu.BuildOption.normal.build.ldscript=linker_scripts/gcc/flash_with_bootloader.ld
+tinyarcade.menu.BuildOption.normal.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON -DCRYSTALLESS
+
+tinyarcade.menu.BuildOption.TAmenu=Menu (No USB Init)
+tinyarcade.menu.BuildOption.TAmenu.build.ldscript=linker_scripts/gcc/flash_with_bootloader.ld
+tinyarcade.menu.BuildOption.TAmenu.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON -DUSB_NO_INIT -DCRYSTALLESS
+
+tinyarcade.menu.BuildOption.TAgame=Binary for SD Card
+tinyarcade.menu.BuildOption.TAgame.build.ldscript=linker_scripts/gcc/link_for_menu.ld
+tinyarcade.menu.BuildOption.TAgame.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON -DCRYSTALLESS
+
+tinyarcade.build.openocdscript=openocd_scripts/arduino_zero.cfg
+tinyarcade.build.variant=tinyarcade
+tinyarcade.build.variant_system_lib=
+tinyarcade.build.vid=0x03EB
+tinyarcade.build.pid=0x8009
+
+# TinyZero
+# ---------------------------------------
+tinyzero.name=TinyZero
+tinyzero.vid.0=0x03EB
+tinyzero.pid.0=0x8008
+tinyzero.vid.1=0x03EB
+tinyzero.pid.1=0x8009
+tinyzero.upload.tool=bossac
+tinyzero.upload.protocol=sam-ba
+tinyzero.upload.maximum_size=262144
+tinyzero.upload.use_1200bps_touch=true
+tinyzero.upload.wait_for_upload_port=true
+tinyzero.upload.native_usb=true
+tinyzero.build.mcu=cortex-m0plus
+tinyzero.build.f_cpu=48000000L
+tinyzero.build.usb_product="TinyZero"
+tinyzero.build.usb_manufacturer="TinyCircuits"
+tinyzero.build.board=SAMD_ZERO
+tinyzero.build.core=arduino
+tinyzero.build.ldscript=linker_scripts/gcc/flash_with_bootloader.ld
+
+tinyzero.menu.BuildOption.normal=Default
+tinyzero.menu.BuildOption.normal.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON
+
+tinyzero.menu.BuildOption.internal=Internal 32KHz Oscillator
+tinyzero.menu.BuildOption.internal.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON -DCRYSTALLESS  
+
+tinyzero.build.openocdscript=openocd_scripts/arduino_zero.cfg
+tinyzero.build.variant=tinyzero
+tinyzero.build.variant_system_lib=
+tinyzero.build.vid=0x03EB
+tinyzero.build.pid=0x8009
+
+# WirelingZero
+# ---------------------------------------
+wirelingzero.name=WirelingZero
+wirelingzero.vid.0=0x03EB
+wirelingzero.pid.0=0x8008
+wirelingzero.vid.1=0x03EB
+wirelingzero.pid.1=0x8009
+wirelingzero.upload.tool=bossac
+wirelingzero.upload.protocol=sam-ba
+wirelingzero.upload.maximum_size=262144
+wirelingzero.upload.use_1200bps_touch=true
+wirelingzero.upload.wait_for_upload_port=true
+wirelingzero.upload.native_usb=true
+wirelingzero.build.mcu=cortex-m0plus
+wirelingzero.build.f_cpu=48000000L
+wirelingzero.build.usb_product="WirelingZero"
+wirelingzero.build.usb_manufacturer="TinyCircuits"
+wirelingzero.build.board=SAMD_ZERO
+wirelingzero.build.core=arduino
+wirelingzero.build.ldscript=linker_scripts/gcc/flash_with_bootloader.ld
+
+wirelingzero.menu.BuildOption.normal=Default
+wirelingzero.menu.BuildOption.normal.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON
+
+wirelingzero.menu.BuildOption.internal=Internal 32KHz Oscillator
+wirelingzero.menu.BuildOption.internal.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON -DCRYSTALLESS  
+
+wirelingzero.build.openocdscript=openocd_scripts/arduino_zero.cfg
+wirelingzero.build.variant=wirelingzero
+wirelingzero.build.variant_system_lib=
+wirelingzero.build.vid=0x03EB
+wirelingzero.build.pid=0x8009
+
+
+# RobotZero
+# ---------------------------------------
+robotzero.name=RobotZero
+robotzero.vid.0=0x03EB
+robotzero.pid.0=0x8008
+robotzero.vid.1=0x03EB
+robotzero.pid.1=0x8009
+robotzero.upload.tool=bossac
+robotzero.upload.protocol=sam-ba
+robotzero.upload.maximum_size=262144
+robotzero.upload.use_1200bps_touch=true
+robotzero.upload.wait_for_upload_port=true
+robotzero.upload.native_usb=true
+robotzero.build.mcu=cortex-m0plus
+robotzero.build.f_cpu=48000000L
+robotzero.build.usb_product="RobotZero"
+robotzero.build.usb_manufacturer="TinyCircuits"
+robotzero.build.board=SAMD_ZERO
+robotzero.build.core=arduino
+robotzero.build.ldscript=linker_scripts/gcc/flash_with_bootloader.ld
+
+robotzero.menu.BuildOption.normal=Default
+robotzero.menu.BuildOption.normal.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON
+
+robotzero.menu.BuildOption.internal=Internal 32KHz Oscillator
+robotzero.menu.BuildOption.internal.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags} -DUSBCON -DCRYSTALLESS  
+
+robotzero.build.openocdscript=openocd_scripts/arduino_zero.cfg
+robotzero.build.variant=robotzero
+robotzero.build.variant_system_lib=
+robotzero.build.vid=0x03EB
+robotzero.build.pid=0x8009

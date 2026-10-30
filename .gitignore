@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Arduino build artifacts
+*.hex
+*.elf
+*.map
+*.lss
+*.sym
+*.bin
+*.a
+*.o
+*.ino.ehex
+*.ino.debug
+*.ino.*
+
+# Vendored library/board zips are unpacked next to them — keep only the unpacked copies
+BleTest/libraries/*.zip
+BleTest/hardware/*.zip
