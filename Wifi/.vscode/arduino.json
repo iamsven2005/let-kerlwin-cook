@@ -1,0 +1,7 @@
+{
+    "port": "/dev/ttyACM0",
+    "configuration": "BuildOption=normal",
+    "board": "TinyCircuits:samd:tinyscreen",
+    "programmer": "sam_ice",
+    "sketch": "wifi_signal.ino"
+}
