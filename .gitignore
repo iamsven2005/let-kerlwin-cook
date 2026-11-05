@@ -2,6 +2,10 @@
 __pycache__/
 *.pyc
 
+# .NET generated output (tracked legacy outputs remain tracked)
+**/bin/
+**/obj/
+
 # Arduino build artifacts
 *.hex
 *.elf
@@ -16,5 +20,9 @@ __pycache__/
 *.ino.*
 
 # Vendored library/board zips are unpacked next to them — keep only the unpacked copies
-BleTest/libraries/*.zip
-BleTest/hardware/*.zip
+Legacy/BleTest/libraries/*.zip
+Legacy/BleTest/hardware/*.zip
+# Local credentials in any copy of the restructured firmware
+**/secrets.h
+# The legacy archive contains a private configuration file; keep it local.
+Legacy/GloveSurvey_Restructured.zip

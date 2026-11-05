@@ -1,0 +1,8 @@
+# Wi-Fi networks and passwords (copy GloveSurvey/src/core/secrets_example.h)
+GloveSurvey/src/core/secrets.h
+
+# .NET build output
+RoombaMapper/bin/
+RoombaMapper/obj/
+.vs/
+*.user

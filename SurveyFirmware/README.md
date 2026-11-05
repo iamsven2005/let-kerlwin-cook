@@ -1,0 +1,17 @@
+# SurveyFirmware
+
+Open `SurveyFirmware.ino` in Arduino IDE. Select `HAT` (default) or `ROOMBA` by changing `SURVEY_MODE` in `src/common/mode.h`; the sketch dispatches to the selected mode, and only that mode's C++ sources are compiled. Target: TinyScreen+; HAT requires TinyScreen, WiFi101 and Wireling libraries, plus its Wi-Fi, BMA250 and IR hardware. Set your own network profiles in `src/common/wifi_logic.cpp`: network defaults are placeholders, not the original credentials. USB configuration and legacy UDP functionality remain as in the tracked glove project.
+
+`src/hat` contains the glove-specific features. The BMA250 and Wi-Fi drivers are in `src/common`; both are currently enabled only in HAT mode. These files originate from `Legacy/GloveSurvey_Project/GloveSurvey`, with mode guards, updated include paths, and blanked network credentials. **HAT is a legacy glove implementation, not a validated head-mounted design.** IR obstacle reporting is gated by glove hand pose and uses hand-relative offsets; accelerometer step detection and calibration also assume wrist use. These can produce incorrect or missing obstacle/position data on a hat and must not be relied upon for navigation or safety. The accelerometer alone cannot measure heading; heading still requires manual correction. The legacy glove setup and protocol are described in `Legacy/GloveSurvey_Project/GloveSurvey/README_GLOVE.md` (its hardware placement assumptions apply to a glove, not a hat).
+
+Additional standalone sketches:
+- `TailGateDetector/`: thermal doorway-detection experiment; relay and security notes are in `App/Tools/TailGateRelay/`.
+- `IRProximityDiagnostic/`: uncalibrated proximity and ambient-IR diagnostic; not a distance or safety sensor.
+- `MotorController/`: the migrated motor-node algorithm and BLE peripheral. It defaults to simulation and cannot drive physical motors.
+- `RobotReference/`: the older standalone Wi-Fi navigation and simulated odometry sketch, now also ported into ROOMBA mode.
+
+`src/roomba` runs the reference navigation, Wi-Fi command handling and telemetry with **forced virtual motors and odometry**. Its front IR defaults to the physical Wireling sensor; Wi-Fi readings likewise come from the Wi-Fi shield. Configure the initially blank ROOMBA Wi-Fi defaults in `src/roomba/wifi_logic.cpp` or through its settings commands. Position telemetry retains its original format and is accompanied by a separate simulation message. Direct board-to-board communication, including a BLE central, has not been implemented. Do not infer that an existing motor controller is actively stopped; independently ensure motors are electrically disabled before testing.
+
+HAT responds to `HELLO` and `FEATURES` with an `F` capability line. `MIRROR,ON` and `MIRROR,OFF` enable and disable periodic `D` debug pages; `SET,dbg_ms,<milliseconds>` sets the round interval (200–60000 ms). Pages show existing firmware state, not validated measurements. The legacy on-device debug pager is not implemented: `DEBUG` explicitly reports it unavailable. Existing HAT commands remain available.
+
+Run the host-only checks with `bash SurveyFirmware/tests/run.sh` (g++ and Python 3 required). They compile both modes with Arduino stubs, exercise HAT capability and mirror commands and 4,000 loop iterations, and check ROOMBA RUN/PAUSE commands, virtual motion, and simulation labeling. These are not board builds or hardware, Wi-Fi, sensor, or motor tests.

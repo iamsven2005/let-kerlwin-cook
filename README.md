@@ -1,12 +1,24 @@
+# Survey project and experiments
+
+The repository is being consolidated. The current Windows desktop app is in
+[`App/`](App/). Build it with `dotnet build App/RoombaMapper.csproj`.
+The new mode-selectable firmware is in [`SurveyFirmware/`](SurveyFirmware/).
+Its hat mode is adapted from the glove; Roomba navigation uses simulated
+motors and odometry. Read the firmware README before using either mode. Direct BLE to
+an independent motor controller is not implemented. [`Legacy/`](Legacy/) preserves
+older projects and experiments; feature migration is still in progress.
+
+---
+
 # Chef-Eye — TinyScreen+ boards ↔ laptop hub
 
 Three files, two roles:
 
 | File | Runs on | What it does |
 |---|---|---|
-| `BleTest/BleTest.ino` | the watch board (Arduino tab 1) | shows status on the OLED, replies `ID <n>` when the hub asks, relays received messages, sends button presses |
-| `BleTest/UART.ino` | the watch board (Arduino tab 2) | BlueNRG-MS BLE stack + Nordic UART Service (NUS) — no `setup()`/`loop()` of its own |
-| `hub.py` | the laptop (Python) | finds every `BlueNRG*` board over Bluetooth, connects to all, asks each for its ID, relays messages between boards |
+| `Legacy/BleTest/BleTest.ino` | the watch board (Arduino tab 1) | shows status on the OLED, replies `ID <n>` when the hub asks, relays received messages, sends button presses |
+| `Legacy/BleTest/UART.ino` | the watch board (Arduino tab 2) | BlueNRG-MS BLE stack + Nordic UART Service (NUS) — no `setup()`/`loop()` of its own |
+| `Legacy/Bluetooth/hub.py` | the laptop (Python) | finds every `BlueNRG*` board over Bluetooth, connects to all, asks each for its ID, relays messages between boards |
 
 Hardware: TinyCircuits **TinyScreen Smart Watch Kit** (TinyDuino + USB TinyShield + BLE TinyShield (ST), programmed as a **TinyScreen+**). One board per USB port; the BLE TinyShield must be physically attached.
 
@@ -15,15 +27,15 @@ Hardware: TinyCircuits **TinyScreen Smart Watch Kit** (TinyDuino + USB TinyShiel
 ### Arduino IDE route
 1. Add to *Additional Boards Manager URLs*: `http://files.tinycircuits.com/ArduinoBoards/package_tinycircuits_index.json`
 2. Install **Arduino SAMD Boards** and **TinyCircuits SAMD Boards** in Boards Manager; install the **TinyScreen** library in Library Manager.
-3. Open the `BleTest/` folder as a sketch (folder name = main tab name). Select board **TinyScreen+**, port `COMxx (TinyScreen+)`.
+3. Open the `Legacy/BleTest/` folder as a sketch (folder name = main tab name). Select board **TinyScreen+**, port `COMxx (TinyScreen+)`.
 4. Upload.
 
 ### arduino-cli route (already set up in this repo)
-`BleTest/arduino-cli.yaml` vendors the TinyCircuits board package and both libraries (`BleTest/hardware/`, `BleTest/libraries/`), so:
+`Legacy/BleTest/arduino-cli.yaml` vendors the TinyCircuits board package and both libraries (`Legacy/BleTest/hardware/`, `Legacy/BleTest/libraries/`), so:
 
 ```sh
-arduino-cli --config-file BleTest/arduino-cli.yaml compile \
-  --fqbn TinyCircuits:samd:tinyscreen --upload --verify -p COM3 BleTest
+arduino-cli --config-file Legacy/BleTest/arduino-cli.yaml compile \
+  --fqbn TinyCircuits:samd:tinyscreen --upload --verify -p COM3 Legacy/BleTest
 ```
 
 Verified working: 25,140 bytes (9%) of flash, upload + checksum verify on COM3.
@@ -33,8 +45,8 @@ Before uploading, power the board ON and plug in the micro-USB cable. If it won'
 ## 2. Run the hub
 
 ```sh
-pip install bleak          # hub.py needs Python 3.10+ and bleak
-python hub.py              # in a real terminal — it reads your typing
+pip install bleak          # Legacy/Bluetooth/hub.py needs Python 3.10+ and bleak
+python Legacy/Bluetooth/hub.py              # in a real terminal — it reads your typing
 ```
 
 What a healthy run looks like:
@@ -52,16 +64,16 @@ Type any text to broadcast it to all boards; `list` shows connected boards.
 
 The advertised name is set in **three places** — all must match:
 
-1. **Scan name** — `BleTest/UART.ino`, in `setConnectable()` (~line 169). Characters are spelled out one by one after the tag byte:
+1. **Scan name** — `Legacy/BleTest/UART.ino`, in `setConnectable()` (~line 169). Characters are spelled out one by one after the tag byte:
    ```cpp
    const char local_name[] = {AD_TYPE_COMPLETE_LOCAL_NAME, 'C','h','e','f','E','y','e','-','2'};
    ```
    `sizeof(local_name)` is computed automatically, so nothing else to change there. Keep it ≤ 63 chars (GATT limit).
-2. **GATT device-name characteristic** — `BleTest/UART.ino`, in `BLEsetup()` (~line 51), what apps show after connecting:
+2. **GATT device-name characteristic** — `Legacy/BleTest/UART.ino`, in `BLEsetup()` (~line 51), what apps show after connecting:
    ```cpp
    const char *name = "ChefEye-2";
    ```
-3. **Hub filter** — `hub.py` line 16:
+3. **Hub filter** — `Legacy/Bluetooth/hub.py` line 16:
    ```python
    NAME_PREFIX = "ChefEye"   # must match the new advertised name
    ```

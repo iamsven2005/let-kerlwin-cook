@@ -1,0 +1,13 @@
+# Motor controller (simulation only)
+
+This is a separate Arduino sketch migrated from `Legacy/bleslave/Motor_Node.ino`, with the compatible BlueNRG UART peripheral implementation from `Legacy/Bluetooth/UART.ino`. Open `MotorController.ino` as its own sketch, not as a tab in `SurveyFirmware.ino`. It targets the original TinyScreen+ / SAMD and BlueNRG BLE hardware and needs the TinyCircuits SAMD board package, TinyScreen library, and STBLE library, plus Arduino SPI and Wire. Select the matching installed TinyScreen+ board in Arduino IDE and compile this sketch; exact package versions and board ID have not been verified here.
+
+**There is no physical motor driver implementation.** Wheel motion and encoder counts are simulated by default. Real mode deliberately fails compilation: specifying pins alone is not sufficient. Driver wiring, polarity, encoder setup, power, emergency stop, command timeout, stall detection and disconnect handling need engineering and physical validation before any motor can be powered. No hardware safety or stopping guarantee is made.
+
+## BLE and commands
+
+This sketch is a BLE **peripheral**; direct board-to-board operation requires the other board to implement a compatible BLE **central** that connects, writes to the UART characteristic and subscribes to notifications. It cannot connect peripheral-to-peripheral and does not itself provide a central or routing service. No phone or desktop relay is inherently required, but a compatible central is not supplied here. The legacy UART uses the same fixed address and BlueNRG name as other legacy examples; multiple identical boards can conflict and need unique correctly configured addresses. The radio path has not been validated on hardware.
+
+One BLE write represents one complete message, up to 20 bytes; incoming writes share a single buffer and can overwrite one another. `ID?` replies `ID MOTOR`. Commands are `M<n> DRIVE`, `M<n> DRIVE <mm>`, `M<n> TURN <degrees> L|R`, and `M<n> STOP`; replies include `A<n>`, `DONE`, and `STALLED`. Only the most recent sequence is deduplicated, ACK is not proof of execution, and parsing/validation is permissive. A missing or malformed command, lost write/notification, delayed disconnect, stale connection, or repeated/reordered sequence may lead to unintended simulated behavior. This protocol is not safety-rated.
+
+Simulation uses fixed geometry and virtual encoder motion. `DRIVE` without distance continues until interrupted; disconnect clears the simulated command after the BLE stack reports the transition. The stall check is a basic legacy heuristic, not a reliable safety monitor. `DONE` reports simulated completion only, not physical motion.
