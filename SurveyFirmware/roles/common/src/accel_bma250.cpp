@@ -1,4 +1,4 @@
-#include "../common/mode.h"
+#include "mode.h"
 #if SURVEY_MODE == HAT
 #include "accel_bma250.h"
 #include <Wire.h>

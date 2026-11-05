@@ -65,7 +65,7 @@ class ThermalTests(unittest.TestCase):
         if not compiler:
             self.skipTest('g++ not available')
         root = HERE.parents[2]
-        source = (root / 'SurveyFirmware/TailGateDetector/TailGateDetector.ino').read_text()
+        source = (root / 'SurveyFirmware/roles/common/examples/TailGateDetector/TailGateDetector.ino').read_text()
         algorithm = source[source.index('int countPeople('):source.index('// ---------------- entry result')]
         harness = '''#include <cassert>\nconst float PERSON_MARGIN=2.5; const int MIN_BLOB=2; float delta[64]={};\n''' + algorithm + '''\nint main(){int big=-1; assert(countPeople(&big)==0 && big==0); delta[0]=3; assert(countPeople(&big)==0); delta[1]=3; delta[16]=3; delta[17]=3; assert(countPeople(&big)==2 && big==2); delta[8]=3; assert(countPeople(&big)==1 && big==5); for(int i=0;i<64;i++)delta[i]=3; assert(countPeople(&big)==1 && big==64); }'''
         with tempfile.TemporaryDirectory() as d:

@@ -58,6 +58,35 @@ Check(featureLines.SequenceEqual(new[] { "F,tracker,hand", "D,tracker,one|two,th
 Check(rawLines.SequenceEqual(new[] { "F,tracker,hand" }), "debug pages must not flood the raw log");
 Console.WriteLine("Glove feature parsing, control gating and debug routing tests passed.");
 
+var sim = new RoombaMapper.Sources.FrontierSimulation();
+for (int i = 0; i < 20000 && !sim.Done; i++) sim.Step();
+Check(sim.Done, "frontier simulation must terminate");
+Check(sim.Collisions == 0, "simulated robot must not collide");
+Check(sim.Position == sim.WeakestPosition, "simulation must stop at weakest sampled point");
+Check(sim.VisitedCount == sim.ReachableFreeCount, "all reachable free cells must be visited");
+Console.WriteLine($"Frontier simulation passed: {sim.VisitedCount} cells, {sim.Steps} steps, {sim.Collisions} collisions.");
+var walls = new bool[26,18];
+for (int y = 0; y < 18; y++) walls[12,y] = true;
+walls[12,8] = false;
+var maze = new RoombaMapper.Sources.FrontierSimulation(walls, (0,0));
+for (int i = 0; i < 20000 && !maze.Done; i++) maze.Step();
+Check(maze.Done && maze.Collisions == 0 && maze.VisitedCount == 451 && maze.Position == maze.WeakestPosition, "single-gap room must be fully explored safely");
+Console.WriteLine($"Single-gap simulation passed: {maze.VisitedCount} cells, {maze.Steps} steps.");
+var simButton = (Button)typeof(MainForm).GetField("_frontierSim", flags)!.GetValue(form)!;
+simButton.PerformClick();
+Application.DoEvents();
+Check(typeof(MainForm).GetField("_active", flags)!.GetValue(form) is RoombaMapper.Sources.FrontierSimulationSource, "simulation button must start the virtual source");
+System.Threading.Thread.Sleep(150);
+Application.DoEvents();
+Check((long)typeof(MainForm).GetField("_telemetrySeq", flags)!.GetValue(form)! > 0, "simulation action must deliver telemetry");
+typeof(MainForm).GetMethod("Disconnect", flags)!.Invoke(form, null);
+var connectButton = (Button)typeof(MainForm).GetField("_connect", flags)!.GetValue(form)!;
+connectButton.PerformClick();
+Application.DoEvents();
+Check(typeof(MainForm).GetField("_active", flags)!.GetValue(form) is RoombaMapper.Sources.SimulationSource, "normal simulation must remain available");
+typeof(MainForm).GetMethod("Disconnect", flags)!.Invoke(form, null);
+Console.WriteLine("WinForms frontier simulation action and telemetry passed.");
+
 sealed class TestSource : RoombaMapper.Sources.DataSourceBase
 {
     public override string Name => "test";

@@ -19,6 +19,7 @@ public sealed partial class MainForm : Form
     private readonly NumericUpDown _udpPort = new() { Minimum = 1024, Maximum = 65535, Value = 4210, Width = 75 };
     private readonly TextBox _deviceIp = new() { Width = 110, PlaceholderText = "device IP (optional)" };
     private readonly Button _connect = new() { Text = "Connect", Width = 95 };
+    private readonly Button _frontierSim = new() { Text = "Run frontier simulation (no hardware)", AutoSize = true };
     private readonly Button _clear = new() { Text = "Clear map", AutoSize = true };
     private readonly Button _fit = new() { Text = "Fit view", AutoSize = true };
     private readonly Button _exportCsv = new() { Text = "Export CSV", AutoSize = true };
@@ -91,7 +92,7 @@ public sealed partial class MainForm : Form
         var top = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(6), WrapContents = true };
         top.Controls.AddRange(new Control[]
         {
-            Caption("Source:"), _source, _serialGroup, _bleGroup, _udpGroup, _connect,
+            Caption("Source:"), _source, _serialGroup, _bleGroup, _udpGroup, _connect, _frontierSim,
             new Label { Width = 20 }, _clear, _fit, _showHeat, _showPath, _exportCsv, _savePng
         });
 
@@ -140,6 +141,13 @@ public sealed partial class MainForm : Form
         _source.SelectedIndexChanged += (_, _) => UpdateSourceUi();
         _refreshPorts.Click += (_, _) => RefreshPorts();
         _connect.Click += ConnectClicked;
+        _frontierSim.Click += (_, _) =>
+        {
+            if (_active != null || _simRobot != null) { SetStatus("Disconnect the current source before starting the simulation."); return; }
+            ClearAll();
+            _source.SelectedIndex = 0;
+            ConnectClicked(_frontierSim, EventArgs.Empty);
+        };
         _clear.Click += (_, _) => ClearAll();
         _fit.Click += (_, _) => _map.FitToData();
         _showHeat.CheckedChanged += (_, _) => _map.ShowHeat = _showHeat.Checked;
@@ -271,7 +279,7 @@ public sealed partial class MainForm : Form
         DataSourceBase? src;
         switch (_source.SelectedIndex)
         {
-            case 0: src = new SimulationSource(); break;
+            case 0: src = ReferenceEquals(sender, _frontierSim) ? new FrontierSimulationSource() : new SimulationSource(); break;
             case 1:
                 if (_comPort.SelectedItem is not string port) { SetStatus("No COM port selected. Plug in the TinyScreen+ and press Refresh."); return; }
                 src = new SerialSource(port); break;

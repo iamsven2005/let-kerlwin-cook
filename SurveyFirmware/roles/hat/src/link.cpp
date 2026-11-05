@@ -1,10 +1,10 @@
-#include "../common/mode.h"
+#include <SurveyCommon.h>
 #if SURVEY_MODE == HAT
 #include "link.h"
 #include "config.h"
 #include <WiFi101.h>
 #include <WiFiUdp.h>
-#include "../common/wifi_logic.h"
+#include <SurveyCommon.h>
 #include "commands.h"
 #include "heading.h"
 #include "tracker.h"

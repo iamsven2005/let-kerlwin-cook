@@ -1,4 +1,4 @@
-#include "../common/mode.h"
+#include <SurveyCommon.h>
 #if SURVEY_MODE == HAT
 #include "ir_sensor.h"
 #include "config.h"

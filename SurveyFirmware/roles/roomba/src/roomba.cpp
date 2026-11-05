@@ -1,4 +1,4 @@
-#include "../common/mode.h"
+#include <SurveyCommon.h>
 #if SURVEY_MODE == ROOMBA
 #include <Arduino.h>
 #include "roomba.h"

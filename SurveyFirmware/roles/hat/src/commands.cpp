@@ -1,4 +1,4 @@
-#include "../common/mode.h"
+#include <SurveyCommon.h>
 #if SURVEY_MODE == HAT
 #include "commands.h"
 #include "config.h"
@@ -8,7 +8,7 @@
 #include "readings.h"
 #include "link.h"
 #include "debug.h"
-#include "../common/wifi_logic.h"
+#include <SurveyCommon.h>
 
 bool wifiReconnectWanted = false, roamRequested = false, autoRoam = true;
 

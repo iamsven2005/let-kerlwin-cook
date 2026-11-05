@@ -1,8 +1,8 @@
-#include "../common/mode.h"
+#include <SurveyCommon.h>
 #if SURVEY_MODE == HAT
 #include "motion.h"
 #include "config.h"
-#include "../common/accel_bma250.h"
+#include <SurveyCommon.h>
 #include "tracker.h"
 
 float gravX = 0, gravY = 0, gravZ = 1;

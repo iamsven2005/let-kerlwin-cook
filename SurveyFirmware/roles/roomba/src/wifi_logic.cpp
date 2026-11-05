@@ -1,5 +1,5 @@
-#include "../common/mode.h"
-#if SURVEY_MODE == HAT
+#include <SurveyCommon.h>
+#if SURVEY_MODE == ROOMBA
 /*
   wifi_logic.cpp  -  WiFi connection, signal readings and AP roaming
   See wifi_logic.h for the overview.
@@ -14,12 +14,7 @@
 */
 #include "wifi_logic.h"
 #include <SPI.h>
-// WiFi101 has no function for username + password (WPA2-Enterprise) networks, but its
-// internal connect routine supports them. It is private, so it is opened up here, in
-// this file only (the class itself is unchanged).
-#define private public
 #include <WiFi101.h>
-#undef private
 extern "C" {
   #include "driver/include/m2m_wifi.h"   // low-level connect (lets us pick a channel)
 }
@@ -27,21 +22,8 @@ extern "C" {
 // =====================================================================
 //  Settings (DEFAULTS - the brain can override these at startup)
 // =====================================================================
-// ---- Known networks, tried in this order: the first one in range is used.
-//      user = "" for a normal home network (password only).
-//      user = your login for a network that asks for a username AND a password
-//      (WPA2-Enterprise, e.g. school). Limits of the Wi-Fi chip: username up to 20
-//      characters, password up to 40, PEAP/MSCHAPv2 only, no certificate checking.
-const WifiProfile wifiProfiles[] = {
-  { "YOUR_SSID", "", "YOUR_PASSWORD" },
-};
-const int wifiProfileCount = sizeof(wifiProfiles) / sizeof(wifiProfiles[0]);
-
-// The network in use (filled from a profile, or set from the app with SET ssid/user/pass)
-char          wifiSsid[33]   = "YOUR_SSID";  // key: ssid
-char          wifiUser[65]   = "";            // key: user   ("" = password-only network)
-char          wifiPass[64]   = "YOUR_PASSWORD";  // key: pass   ("" = open network)
-bool          wifiManual     = false;         // true after SET ssid/user/pass: don't use the profiles
+char          wifiSsid[33]   = "";  // key: ssid
+char          wifiPass[64]   = "";     // key: pass   ("" = open network)
 int           roamTriggerDbm = -50;    // key: roam_dbm      look for a better AP below this
 int           roamMarginDb   = 8;      // key: roam_margin   new AP must be this much stronger
 unsigned long roamCheckMs    = 3000;   // key: roam_check_ms gap between scans (0 = back-to-back)
@@ -89,54 +71,13 @@ static void afterConnect() {
   onWifiEvent(WIFI_EV_CONNECTED, 0);
 }
 
-// Username + password for an Enterprise network, in the chip's format
-static tstr1xAuthCredentials enterpriseCred() {
-  tstr1xAuthCredentials c;
-  memset(&c, 0, sizeof(c));
-  strncpy((char*)c.au8UserName, wifiUser, sizeof(c.au8UserName) - 1);
-  strncpy((char*)c.au8Passwd, wifiPass, sizeof(c.au8Passwd) - 1);
-  return c;
-}
-
-// One connection attempt to the current network (waits up to ~10 s)
-static void beginCurrent() {
-  if (strlen(wifiUser) > 0) {
-    tstr1xAuthCredentials c = enterpriseCred();
-    WiFi.startConnect(wifiSsid, M2M_WIFI_SEC_802_1X, &c);
-  } else if (strlen(wifiPass) > 0) {
-    WiFi.begin(wifiSsid, wifiPass);
-  } else {
-    WiFi.begin(wifiSsid);
-  }
-}
-
-// Pick the first known network that is in range (unless the app set one)
-static void pickProfile() {
-  if (wifiManual || wifiProfileCount == 0) return;
-  int n = WiFi.scanNetworks();
-  for (int p = 0; p < wifiProfileCount; p++) {
-    bool seen = false;
-    for (int i = 0; i < n && !seen; i++) seen = strcmp(WiFi.SSID(i), wifiProfiles[p].ssid) == 0;
-    if (!seen && n > 0) continue;
-    strncpy(wifiSsid, wifiProfiles[p].ssid, sizeof(wifiSsid) - 1);
-    strncpy(wifiUser, wifiProfiles[p].user, sizeof(wifiUser) - 1);
-    strncpy(wifiPass, wifiProfiles[p].pass, sizeof(wifiPass) - 1);
-    return;
-  }
-}
-
 // Join the same network, but only on the given channel (= the better AP)
 static bool connectOnChannel(uint8_t channel) {
   WiFi.disconnect();
   delay(200);
 
-  if (strlen(wifiUser) > 0) {
-    tstr1xAuthCredentials c = enterpriseCred();
-    m2m_wifi_connect(wifiSsid, strlen(wifiSsid), M2M_WIFI_SEC_802_1X, &c, channel);
-  } else {
-    uint8_t secType = strlen(wifiPass) > 0 ? M2M_WIFI_SEC_WPA_PSK : M2M_WIFI_SEC_OPEN;
-    m2m_wifi_connect(wifiSsid, strlen(wifiSsid), secType, (void*)wifiPass, channel);
-  }
+  uint8_t secType = strlen(wifiPass) > 0 ? M2M_WIFI_SEC_WPA_PSK : M2M_WIFI_SEC_OPEN;
+  m2m_wifi_connect(wifiSsid, strlen(wifiSsid), secType, (void*)wifiPass, channel);
   return waitForConnect(10000);
 }
 
@@ -197,8 +138,8 @@ void wifiConnect() {
   onWifiEvent(WIFI_EV_CONNECTING, 0);
   currentChannel = 0;
   while (WiFi.status() != WL_CONNECTED) {
-    pickProfile();                       // home or school: whichever is in range
-    beginCurrent();
+    if (strlen(wifiPass) > 0) WiFi.begin(wifiSsid, wifiPass);
+    else                      WiFi.begin(wifiSsid);
     if (WiFi.status() != WL_CONNECTED) onWifiEvent(WIFI_EV_RETRYING, 0);
     onWifiIdle();
   }
@@ -231,4 +172,4 @@ void wifiRoamNow(int liveRssi) {
   checkRoam(true, liveRssi);
 }
 
-#endif // SURVEY_MODE == HAT
+#endif

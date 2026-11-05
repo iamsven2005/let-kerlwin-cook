@@ -1,4 +1,4 @@
-#include "../common/mode.h"
+#include <SurveyCommon.h>
 #if SURVEY_MODE == HAT
 #include "heading.h"
 #include "config.h"

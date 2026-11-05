@@ -1,11 +1,11 @@
-#include "../common/mode.h"
+#include <SurveyCommon.h>
 #if SURVEY_MODE == HAT
 #include "readings.h"
 #include "config.h"
 #include "tracker.h"
 #include "motion.h"
 #include "link.h"
-#include "../common/wifi_logic.h"
+#include <SurveyCommon.h>
 
 struct Reading { uint16_t seq; uint32_t takenMs; int16_t x, y; int8_t rssi, minRssi, maxRssi; char mode; };
 
