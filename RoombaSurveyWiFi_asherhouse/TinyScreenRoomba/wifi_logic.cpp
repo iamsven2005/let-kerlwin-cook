@@ -20,8 +20,8 @@ extern "C" {
 // =====================================================================
 //  Settings (DEFAULTS - the brain can override these at startup)
 // =====================================================================
-char          wifiSsid[33]   = "NOKIA-6AA1";  // key: ssid
-char          wifiPass[64]   = "358n8An7tS";     // key: pass   ("" = open network)
+char          wifiSsid[33]   = "wifissid";  // key: ssid
+char          wifiPass[64]   = "wifipass";     // key: pass   ("" = open network)
 int           roamTriggerDbm = -50;    // key: roam_dbm      look for a better AP below this
 int           roamMarginDb   = 8;      // key: roam_margin   new AP must be this much stronger
 unsigned long roamCheckMs    = 3000;   // key: roam_check_ms gap between scans (0 = back-to-back)
