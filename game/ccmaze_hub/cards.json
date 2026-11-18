@@ -1,0 +1,72 @@
+{
+  "_comment": "Each family and each card type has an enable switch and a weight. Effective weight of a card type = family weight x card weight. The dominoes U/D/L/R can't be disabled (solvability guarantee). control_cards: IF/FOR on/off; their share of the deck is control_card_share in config.json.",
+  "families": {
+    "D": {"enabled": true, "weight": 1.0, "cards": {
+      "U": {"enabled": true, "weight": 1.0},
+      "D": {"enabled": true, "weight": 1.0},
+      "L": {"enabled": true, "weight": 1.0},
+      "R": {"enabled": true, "weight": 1.0}
+    }},
+    "I3": {"enabled": true, "weight": 1.0, "cards": {
+      "UU": {"enabled": true, "weight": 1.0},
+      "DD": {"enabled": true, "weight": 1.0},
+      "LL": {"enabled": true, "weight": 1.0},
+      "RR": {"enabled": true, "weight": 1.0}
+    }},
+    "I4": {"enabled": true, "weight": 1.0, "cards": {
+      "UUU": {"enabled": true, "weight": 1.0},
+      "DDD": {"enabled": true, "weight": 1.0},
+      "LLL": {"enabled": true, "weight": 1.0},
+      "RRR": {"enabled": true, "weight": 1.0}
+    }},
+    "V": {"enabled": true, "weight": 1.0, "cards": {
+      "UR": {"enabled": true, "weight": 1.0},
+      "UL": {"enabled": true, "weight": 1.0},
+      "DR": {"enabled": true, "weight": 1.0},
+      "DL": {"enabled": true, "weight": 1.0},
+      "RU": {"enabled": true, "weight": 1.0},
+      "RD": {"enabled": true, "weight": 1.0},
+      "LU": {"enabled": true, "weight": 1.0},
+      "LD": {"enabled": true, "weight": 1.0}
+    }},
+    "O": {"enabled": true, "weight": 1.0, "cards": {
+      "RDL": {"enabled": true, "weight": 1.0},
+      "RUL": {"enabled": true, "weight": 1.0},
+      "LDR": {"enabled": true, "weight": 1.0},
+      "LUR": {"enabled": true, "weight": 1.0},
+      "URD": {"enabled": true, "weight": 1.0},
+      "ULD": {"enabled": true, "weight": 1.0},
+      "DRU": {"enabled": true, "weight": 1.0},
+      "DLU": {"enabled": true, "weight": 1.0}
+    }},
+    "L": {"enabled": true, "weight": 1.0, "cards": {
+      "UUR": {"enabled": true, "weight": 1.0},
+      "UUL": {"enabled": true, "weight": 1.0},
+      "DDR": {"enabled": true, "weight": 1.0},
+      "DDL": {"enabled": true, "weight": 1.0},
+      "RRU": {"enabled": true, "weight": 1.0},
+      "RRD": {"enabled": true, "weight": 1.0},
+      "LLU": {"enabled": true, "weight": 1.0},
+      "LLD": {"enabled": true, "weight": 1.0},
+      "URR": {"enabled": true, "weight": 1.0},
+      "ULL": {"enabled": true, "weight": 1.0},
+      "DRR": {"enabled": true, "weight": 1.0},
+      "DLL": {"enabled": true, "weight": 1.0},
+      "RUU": {"enabled": true, "weight": 1.0},
+      "RDD": {"enabled": true, "weight": 1.0},
+      "LUU": {"enabled": true, "weight": 1.0},
+      "LDD": {"enabled": true, "weight": 1.0}
+    }},
+    "S": {"enabled": true, "weight": 1.0, "cards": {
+      "RUR": {"enabled": true, "weight": 1.0},
+      "RDR": {"enabled": true, "weight": 1.0},
+      "LUL": {"enabled": true, "weight": 1.0},
+      "LDL": {"enabled": true, "weight": 1.0},
+      "URU": {"enabled": true, "weight": 1.0},
+      "ULU": {"enabled": true, "weight": 1.0},
+      "DRD": {"enabled": true, "weight": 1.0},
+      "DLD": {"enabled": true, "weight": 1.0}
+    }}
+  },
+  "control_cards": {"IF": {"enabled": true}, "FOR": {"enabled": true}}
+}
