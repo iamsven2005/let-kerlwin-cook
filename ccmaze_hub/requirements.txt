@@ -1,0 +1,6 @@
+# Pinned versions tested for both Linux (BlueZ) and Windows (WinRT), Python 3.10-3.13.
+# bleak pulls in its own platform backend (dbus-fast on Linux, winrt-* on Windows).
+pygame==2.6.1
+bleak==3.1.0
+# tests
+pytest==9.1.1

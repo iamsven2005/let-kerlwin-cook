@@ -1,0 +1,65 @@
+2026-11-19 16:55:50,124 WARNING bleak.backends.winrt.client: C0:CC:00:00:4D:49: unhandled services changed event
+2026-11-19 16:56:15,744 INFO ccmaze.nodes.physical: 4D49: attempt failed: CCNODE-4D49 not advertising
+2026-11-19 16:56:21,747 INFO ccmaze.nodes.physical: 4D49: attempt failed: CCNODE-4D49 not advertising
+2026-11-19 16:56:47,248 WARNING bleak.backends.winrt.client: C0:CC:00:00:4D:49: unhandled services changed event
+2026-11-19 16:57:02,386 INFO ccmaze.nodes.physical: 4D49: attempt failed: CCNODE-4D49 not advertising
+2026-11-19 16:57:08,402 INFO ccmaze.nodes.physical: 4D49: attempt failed: CCNODE-4D49 not advertising
+2026-11-19 16:57:15,426 INFO ccmaze.nodes.physical: 4D49: attempt failed: CCNODE-4D49 not advertising
+2026-11-19 17:32:25,002 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 17:32:31,005 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 17:32:38,000 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 17:32:46,993 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 17:33:00,027 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 17:57:31,028 WARNING bleak.backends.winrt.client: C0:CC:00:00:B2:3F: unhandled services changed event
+2026-11-19 17:57:31,508 ERROR ccmaze.nodes.physical: 7F1D: write 'PING' failed: Could not write value b'PING\n' to characteristic 000D: Unreachable
+2026-11-19 17:57:31,775 WARNING bleak.backends.winrt.client: C0:CC:00:00:7F:1D: unhandled services changed event
+2026-11-19 18:02:23,811 INFO ccmaze.nodes.physical: B23F: attempt failed: CCNODE-B23F not advertising
+2026-11-19 18:02:23,816 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:02:29,799 INFO ccmaze.nodes.physical: B23F: attempt failed: CCNODE-B23F not advertising
+2026-11-19 18:02:29,822 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:02:36,826 INFO ccmaze.nodes.physical: B23F: attempt failed: CCNODE-B23F not advertising
+2026-11-19 18:02:36,830 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:02:45,838 INFO ccmaze.nodes.physical: B23F: attempt failed: CCNODE-B23F not advertising
+2026-11-19 18:02:45,841 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:02:58,892 INFO ccmaze.nodes.physical: B23F: attempt failed: CCNODE-B23F not advertising
+2026-11-19 18:02:58,896 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:03:13,908 INFO ccmaze.nodes.physical: B23F: attempt failed: CCNODE-B23F not advertising
+2026-11-19 18:03:13,910 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:03:28,917 INFO ccmaze.nodes.physical: B23F: attempt failed: CCNODE-B23F not advertising
+2026-11-19 18:03:28,920 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:03:43,958 INFO ccmaze.nodes.physical: B23F: attempt failed: CCNODE-B23F not advertising
+2026-11-19 18:03:43,961 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:03:58,983 INFO ccmaze.nodes.physical: B23F: attempt failed: CCNODE-B23F not advertising
+2026-11-19 18:03:58,986 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:23:36,867 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:23:42,901 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:23:49,920 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:23:58,914 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:24:11,936 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:24:26,966 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:24:41,987 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:24:57,016 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:25:12,045 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:25:27,076 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:25:42,116 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:25:57,145 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:26:12,168 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:26:27,180 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:26:42,206 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:26:57,226 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:27:12,248 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:27:27,279 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:27:42,307 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:27:57,337 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:28:12,357 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:28:27,394 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:28:42,424 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:28:57,446 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:29:12,444 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:29:27,467 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:29:42,501 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:29:57,536 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:30:12,562 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:30:27,598 INFO ccmaze.nodes.physical: 18CE: attempt failed: CCNODE-18CE not advertising
+2026-11-19 18:35:00,371 INFO ccmaze.nodes.physical: 7F1D: attempt failed: CCNODE-7F1D not advertising
+2026-11-19 18:46:54,815 WARNING bleak.backends.winrt.client: C0:CC:00:00:18:CE: unhandled services changed event
