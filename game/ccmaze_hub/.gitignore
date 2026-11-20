@@ -1,0 +1,7 @@
+# virtual environments are per-machine and per-OS: never commit or copy them
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+logs/
